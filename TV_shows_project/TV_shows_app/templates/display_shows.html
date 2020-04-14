@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Read(One)</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <h1>This is page number {{number}}</h1>
+    <h1>TV Show {{number}}</h1>
+    <p>Title: {{display_show.title}}</p>
+    <p>Network: {{display_show.network.name}}</p>
+    <p>Release Date: {{display_show.release_date}}</p>
+    <p>Description: {{display_show.desc}}</p>
+    <p>Last Updated: {{display_show.updated_at}}</p>
+    <p><a href="<int:num1>/edit">Edit</a> | <a href="">Delete</a> | <a href="/shows">See all shows!</a></p>
     
 </body>
 </html>
