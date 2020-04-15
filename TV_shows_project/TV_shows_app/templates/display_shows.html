@@ -6,20 +6,21 @@
     <title>Read(One)</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body>
-    <h1>TV Show {{number}}</h1>
-    <p>Title: {{display_show.title}}</p>
-    <p>Network: {{display_show.network.name}}</p>
-    <p>Release Date: {{display_show.release_date}}</p>
-    <p>Description: {{display_show.desc}}</p>
-    <p>Last Updated: {{display_show.updated_at}}</p>
-    <p><a href="/shows/{{number}}/edit">Edit</a> | 
-        <form action="/shows/{{number}}/destroy" method="POST">
-            {% csrf_token %}
-            <button type="submit">Delete</button>
-        </form> | 
-        <a href="/shows">See all shows!</a>
-    </p>
-    
+<body class="bg-secondary">
+    <div class="container mt-4 bg-light border rounded p-4">
+        <h1 class="text-primary display-4">TV Show {{number}}</h1>
+        <p><span class="text-info text-3">Title:</span> {{display_show.title}}</p>
+        <p><span class="text-info">Network:</span> {{display_show.network.name}}</p>
+        <p><span class="text-info">Release Date:</span> {{display_show.release_date}}</p>
+        <p><span class="text-info">Description:</span> {{display_show.desc}}</p>
+        <p><span class="text-info">Last Updated:</span> {{display_show.updated_at}}</p>
+        <a class="btn btn-dark text-light pr-2" role="button" href="/shows">Go Back</a>
+            <a class="btn btn-dark text-light px-2" role="button" href="{{shows.id}}/edit">Edit</a>
+            <form class="d-inline-block" action="{{shows.id}}/destroy" method="POST">
+                {% csrf_token %}
+                <button class="text-light btn btn-dark" type="submit">Delete</button>
+            </form>
+        
+    </div>
 </body>
 </html>
