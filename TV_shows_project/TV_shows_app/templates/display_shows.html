@@ -15,8 +15,8 @@
         <p><span class="text-info">Description:</span> {{display_show.desc}}</p>
         <p><span class="text-info">Last Updated:</span> {{display_show.updated_at}}</p>
         <a class="btn btn-dark text-light pr-2" role="button" href="/shows">Go Back</a>
-            <a class="btn btn-dark text-light px-2" role="button" href="{{shows.id}}/edit">Edit</a>
-            <form class="d-inline-block" action="{{shows.id}}/destroy" method="POST">
+            <a class="btn btn-dark text-light px-2" role="button" href="edit">Edit</a>
+            <form class="d-inline-block" action="destroy" method="POST">
                 {% csrf_token %}
                 <button class="text-light btn btn-dark" type="submit">Delete</button>
             </form>
