@@ -21,7 +21,13 @@
             <td>{{shows.title}}</td>
             <td>{{shows.network.name}}</td>
             <td>{{shows.release_date}}</td>
-            <td><a href="">Show</a> | <a href="<int:num1>/edit">Edit</a> | <a href="">Delete</a></td>
+            <td><a href="{{shows.id}}">Show</a> | 
+                <a href="{{shows.id}}/edit">Edit</a> | 
+                <form action="{{shows.id}}/destroy" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </table>

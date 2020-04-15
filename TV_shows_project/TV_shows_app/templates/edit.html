@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body class="bg-secondary">
+    <div class="container mt-3">
+        <form class="w-50 border border-secondary rounded m-auto text-info p-5 bg-dark" action="update" method=POST>
+            <h2 class="text-center mb-3">Edit Show {{num1}}</h2>
+        {% csrf_token %}
+        <div class="form-group">
+            <label> Title: </label>
+            <input class="form-control" type="text" name="title">
+        </div>
+        <div class="form-group">
+            <label> Network:</label>
+            <input class="form-control" type="text" name="network_name">
+        </div>
+            <label > Release Date:</label>
+            <input class="form-control mb-3" type="date" name="release_date">
+        <div class="form-group mb-4">
+            <label>Description:</label>
+            <textarea class="form-control" name="desc"></textarea>
+        </div>
+            <button class="btn btn-block btn-outline-dark text-info bg-secondary" type="submit">Update</button>
+        </form>
+    </div>
+</body>
+</html>

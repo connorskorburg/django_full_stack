@@ -13,7 +13,13 @@
     <p>Release Date: {{display_show.release_date}}</p>
     <p>Description: {{display_show.desc}}</p>
     <p>Last Updated: {{display_show.updated_at}}</p>
-    <p><a href="<int:num1>/edit">Edit</a> | <a href="">Delete</a> | <a href="/shows">See all shows!</a></p>
+    <p><a href="/shows/{{number}}/edit">Edit</a> | 
+        <form action="/shows/{{number}}/destroy" method="POST">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form> | 
+        <a href="/shows">See all shows!</a>
+    </p>
     
 </body>
 </html>

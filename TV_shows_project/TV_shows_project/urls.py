@@ -17,5 +17,5 @@ Including another URLconf
 from django.urls import path, include
 
 urlpatterns = [
-    path('', include('TV_shows_app.urls')),
+    path('shows/', include('TV_shows_app.urls')),
 ]
