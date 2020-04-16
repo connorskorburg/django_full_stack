@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from TV_shows_app.models import Network, Show
+from TV_shows_app.models import *
+from django.contrib import messages
 
 # Create your views here.
 
@@ -10,6 +11,13 @@ def new(request):
     return render(request, 'new.html')
 
 def create(request):
+
+    errors = Show.objects.basic_validator(request.POST)
+    
+    if len(errors) > 0:
+        for key, val in errors.items():
+            messages.error(request, val)
+        return redirect('/shows/new')
 
     network = request.POST['network_name']
     title = request.POST['title']
@@ -56,7 +64,15 @@ def edit(request, num1):
     return render(request, 'edit.html', context)
 
 def update(request, num1):
-    print('HELLO IS THIS WORKING')
+
+    errors = Show.objects.basic_validator(request.POST)
+    
+    if len(errors) > 0:
+        for key, val in errors.items():
+            messages.error(request, val)
+        return redirect(f'/shows/{num1}/edit')
+
+
     edit_show = Show.objects.get(id=num1)
     new_title = request.POST['title']
     new_desc = request.POST['desc']
@@ -65,39 +81,23 @@ def update(request, num1):
 
 
     if new_title != edit_show.title:
-        print(new_title)
         edit_show.title = new_title
         edit_show.save()
     if new_desc != edit_show.desc:
-        print('first elif ')
         edit_show.desc = new_desc
         edit_show.save()
     if new_release_date != edit_show.release_date:
         edit_show.release_date = new_release_date
         edit_show.save()
     if new_network != 'foo':
-        print('in elif')
         all_networks = Network.objects.all()
         for nets in all_networks:
             if new_network == nets.name:
-                print(new_network)
                 edit_show.network = nets
                 edit_show.save()
     else:
-        print('in else statement')
         edit_show.network = new_network
         edit_show.save()
-            
-
-    # all_networks = Network.objects.all()
-    # for nets in all_networks:
-    #     if new_network == nets.name:
-    #         edit_show.network = nets
-    #     else:
-    #         edit_show.network = new_network
-    #         edit_show.save()
-
-
 
     return redirect(f'/shows/{num1}')
 

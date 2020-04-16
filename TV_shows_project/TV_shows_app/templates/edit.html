@@ -7,10 +7,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body class="bg-secondary">
+
+    
+    
     <div class="container mt-3">
         <form class="w-50 border border-secondary rounded m-auto text-info p-5 bg-dark" action="update" method=POST>
             <h2 class="text-center mb-3">Edit Show {{num1}}</h2>
-        {% csrf_token %}
+            {% csrf_token %}
+
+            {% if messages %}
+            <div class="messages m-auto text-center">    
+                {% for message in messages %}    
+                    <p {% if message.tags %} class="text-danger border rounded mx-auto {{ message.tags }}"{% endif %}>{{ message }}</p>    
+                {% endfor %}
+            </div>
+            {% endif %}
+            
         <div class="form-group">
             <label> Title: </label>
             <input class="form-control" type="text" name="title">
