@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body class="bg-dark">
+    <div class="container text-secondary bg-light p-3 border rounded mt-2">
+        <h1>Add a New Course</h1>
+        <!-- validation for form -->
+        {% if messages %}
+        <div class="messages text-center m-auto">
+            {% for message in messages %}
+                <p {% if message.tags %} class="w-50 text-danger border rounded {{ message.tags }}" {% endif %}>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- form entry for new course -->
+        <form action="/new" method=POST>
+        {% csrf_token %}
+        <div class="form-group w-50">
+            <label>Name:</label>
+            <input class="form-control" type="text" name="course_name">
+        </div>
+        <div class="form_group w-50">
+            <label>Description:</label> 
+            <textarea class="form-control" name="desc" cols="30" rows="3"></textarea>
+        </div>
+        <button class="btn mt-2 btn-dark" type="submit">Add</button>
+        </form>
+    </div>
+    <!-- display all courses -->
+    <div class="container text-secondary bg-light p-3 mt-2 border rounded">
+        <h1>Courses</h1>
+        <table class="bg-light mt-3 table table-sm text-center table-striped">
+            <tr>
+                <th>Course Name</th>
+                <th>Description</th>
+                <th>Date Added</th>
+                <th>Actions</th>
+            </tr>
+            {% for course in all_courses%}
+            <tr>
+                <td>{{course.name}}</td>
+                <td>{{course.desc}}</td>
+                <td>{{course.created_at}}</td>
+                <td><a href="/destroy/{{course.id}}">Remove</a></td>
+            </tr> 
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

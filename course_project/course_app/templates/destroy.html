@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destroy</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body class="bg-dark">
+    <!-- display delete approval -->
+    <div class="container text-secondary bg-light p-3 border rounded mt-4">
+        <h1>Are you sure you want to delete the following course?</h1>
+        <p><span class="font-weight-bold">Name:</span> {{current_course.name}}</p>
+        <p><span class="font-weight-bold">Description:</span> {{current_course.desc}}</p>
+        <!-- using hidden input to determine which button the user picks -->
+        <form class="d-inline-block mt-2" action="/delete/{{current_course.id}}" method=POST>
+            {% csrf_token %}
+            <input type="hidden" name="keep">
+            <button class="btn btn-dark" type="submit">No</button>
+        </form>
+        <form class="d-inline-block mt-2" action="/delete/{{current_course.id}}" method=POST>
+            {% csrf_token %}
+            <input type="hidden" name="remove">
+            <button class="btn btn-danger" type="submit">Yes! I want to delete this</button>
+        </form>
+    </div>
+    
+</body>
+</html>
