@@ -1,0 +1,22 @@
+body{
+    background-color: rgb(97, 81, 155);
+    width: 100%;
+}
+#reg-div, #login-div{
+    margin: 0;
+    padding: 3rem;
+    height: 100vh;
+}
+/* register styling */
+#reg-div{
+    width: 50%;
+    margin: 0;
+    display: inline-block;
+}
+
+/* login styling */
+#login-div{
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+}
