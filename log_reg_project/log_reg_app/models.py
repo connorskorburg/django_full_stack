@@ -27,6 +27,7 @@ class UserManager(models.Manager):
 
         return errors
 
+        
 class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -35,3 +36,18 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
+
+
+class Message(models.Model):
+    content = models.TextField()
+    user = models.ForeignKey(User, related_name="messages", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, related_name="comments", on_delete=models.CASCADE)
+    message = models.ForeignKey(Message, related_name="comments", on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

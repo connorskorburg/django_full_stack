@@ -1,11 +1,11 @@
 body{
-    background-color: rgb(97, 81, 155);
+    background-color: #999;
     width: 100%;
 }
 #reg-div, #login-div{
     margin: 0;
-    padding: 3rem;
-    height: 100vh;
+    padding: 1rem 3rem 1rem 3rem;
+    height: 89.8vh;
 }
 /* register styling */
 #reg-div{
@@ -19,4 +19,8 @@ body{
     width: 50%;
     display: inline-block;
     vertical-align: top;
+}
+.fifty{
+    margin: 0% !important;
+    width: 50%;
 }

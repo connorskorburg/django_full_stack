@@ -1,0 +1,13 @@
+#add_mess{
+    width: 100%;
+    height: 10rem;
+    resize: none;
+}
+#add_com{
+    width: 95%;
+    height: 5rem;
+    resize: none;
+}
+#com{
+    width: 97%;
+}
