@@ -1,0 +1,7 @@
+#log, #reg{
+    display: inline-block;
+    width: 50%;
+}
+#log {
+    vertical-align: top;
+}

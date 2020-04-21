@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite Books</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'show_book.css' %}">
+</head>
+<body class="bg-light">
+    <!-- navbar -->
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container">
+            <h1 class="navbar-brand">Favorite Books</h1>
+            <ul class="navbar-nav mt-3">
+                <p class="text-light nav-item mr-5">Welcome {{request.session.first_name}} {{request.session.last_name}}!</p>
+                <a class="text-secondary nav-item" href="/logout">Logout</a>
+            </ul>
+        </div>
+    </nav>
+    <div id="show_book" class="container p-4 d-inline-block">
+        <form action="/update" method="POST">
+        {% csrf_token %}
+            <input class="form-control" id="title_input" type="text" value="{{ book.title }}" name="title">
+            <p class="text-light">Added by: {{ book.uploaded_by.first_name }} {{ book.uploaded_by.last_name }}</p>
+            <p class="text-light">Added on: {{ book.created_at }}</p>
+            <p class="text-light">Last updated on: {{ book.updated_at }}</p>
+            <p class="text-light d-inline-block">Description:</p>
+            <textarea class="form-control" name="desc">{{ book.desc }}</textarea>
+            <div class="text-center">
+                <button type="submit" class="btn btn-dark d-inline-block mt-3" name="update" value="{{ book.id }}">Update</button>
+                <button type="submit" class="btn btn-danger d-inline-block mt-3" name="delete" value="{{ book.id }}">Delete</button>
+            </div>
+        </form>
+    </div><div id="show_all" class="container text-light p-4 d-inline-block">
+        <h2>Users Who Like This Book: </h2>
+    </div>
+    
+</body>
+</html>

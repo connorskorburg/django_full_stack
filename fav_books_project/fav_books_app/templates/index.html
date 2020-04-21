@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Register</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body class="bg-light">
+    <div id="reg" class="contianer p-5">
+        <h2>Register</h2> 
+        <!-- registration form -->
+        <form action="/register" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <input class="form-control" type="text" name="first_name" placeholder="First Name">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" name="last_name" placeholder="Last Name">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" name="email" placeholder="Email">
+        </div>
+        <!-- form row to style inputs next to each other -->
+        <div class="form-row mb-3">
+            <div class="col">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <div class="col">
+                <input class="form-control" type="password" name="conf_password" placeholder="Confirm Password">
+            </div>
+        </div>
+        <button class="btn btn-block btn-dark" type="submit">Register</button>
+        </form>
+    <!-- divs touching to ensure inline block in working -->
+    </div><div id="log" class="container p-5">
+        <h2>Login</h2>
+        <!-- login form -->
+        <form action="/login" method="POST" class="mb-3">
+        {% csrf_token %}
+        <div class="form-goup mb-3">
+            <input type="text" class="form-control" placeholder="Email" name="email">
+        </div>
+        <div class="form-goup mb-3">
+            <input type="password" class="form-control" placeholder="Password" name="password">
+        </div>
+        <button class="btn btn-block btn-dark" type="submit">Login</button>
+        </form>
+        <!-- validation errors messages -->
+        {% if messages %}
+        <div class="messages text-center m-auto">
+            {% for message in messages %}
+            <p {% if message.tags %} class="mb-1 text-danger py-1 border rounded {{ message.tags }}" {% endif %}>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %} 
+    </div>    
+</body>
+</html>

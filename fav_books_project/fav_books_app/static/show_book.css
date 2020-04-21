@@ -1,0 +1,20 @@
+#show_book, #show_all{
+    width: 50%;
+    display: inline-block;
+    font-size: 1.5rem;
+    height: 89.2vh;
+}
+#title_input{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+textarea{
+    resize: none;
+}
+.btn{
+    width: 49%;
+}
+#show_all, #show_book, body{
+    vertical-align: top;
+    background-color: #999;
+}

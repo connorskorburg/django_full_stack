@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite Books</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'books.css' %}">
+</head>
+<body class="bg-light">
+    <!-- navbar -->
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container">
+            <h1 class="navbar-brand">Favorite Books</h1>
+            <ul class="navbar-nav mt-3">
+                <p class="text-light nav-item mr-5">Welcome {{request.session.first_name}} {{request.session.last_name}}!</p>
+                <a class="text-secondary nav-item" href="/logout">Logout</a>
+            </ul>
+        </div>
+    </nav>
+    <div id="add_book" class="container mt-3 p-4">
+        <h2>Add a Favorite Book</h2>
+        <!-- form to add new book -->
+        <form action="/add_book" method="POST">
+        {% csrf_token %}
+            <div class="form-group">
+                <label>Title: </label>
+                <input class="form-control" type="text" name="title">
+            </div>
+            <div class="form-group">
+                <label>Description: </label>
+                <input class="form-control" type="text" name="desc">
+            </div>
+            <button type="submit" class="btn btn-dark">Add</button>
+        </form>
+    <!-- divs touching to ensure inline block in working -->
+    </div><div id="all_books" class="container mt-3 p-4">
+        <!-- list of all books -->
+        <h3>All Books</h3>
+        {% for book in all_books %}
+            <a href="{{book.id}}">{{ book.title }}</a>
+            <p>(added by {{ book.uploaded_by.first_name }} {{ book.uploaded_by.last_name }})</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

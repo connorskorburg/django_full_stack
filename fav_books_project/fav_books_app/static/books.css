@@ -1,0 +1,7 @@
+#add_book, #all_books{
+    width: 50%;
+    display: inline-block;
+}
+#all_books{
+    vertical-align: top;
+}
