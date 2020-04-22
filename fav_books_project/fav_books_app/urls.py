@@ -11,4 +11,5 @@ urlpatterns = [
     path('books/<int:book_id>', views.show_book,),
     path('update', views.update),
     path('add_fav_book', views.add_fav_book),
+    path('remove_fav_book', views.remove_fav_book)
 ]

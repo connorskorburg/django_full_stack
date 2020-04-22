@@ -27,12 +27,15 @@ def books(request):
 def show_book(request, book_id):
     book = Book.objects.get(id=book_id)
     users_who_like = book.user_who_like.all()
+    uploaded_by = book.uploaded_by
+    user_in_session = User.objects.get(id=request.session['id'])
     context = {
         'book': book,
         'users_who_like': users_who_like,
+        'uploaded_by': uploaded_by,
+        'user_in_session': user_in_session,
     }
     return render(request, 'show_book.html', context)
-
 
 
 # POST methods
@@ -82,6 +85,12 @@ def logout(request):
     return redirect('/')
 # add a new book
 def add_book(request):
+    # validate book
+    errors = Book.objects.book_validator(request.POST)
+    if len(errors) > 0:
+        for key, val in errors.items():
+            messages.error(request, val)
+        return redirect('/books')
     # get user that wants to add book
     id = int(request.session['id'])
     user = User.objects.get(id=id)
@@ -93,19 +102,34 @@ def add_book(request):
 
 # update or delete a book if user in session
 def update(request):
-    print(request.POST)
+    # update book fields if the user is in session
     if 'update' in request.POST:
         book = Book.objects.get(id=int(request.POST['update']))
         if request.session['id'] == book.uploaded_by.id:
             book.title = request.POST['title']
             book.desc = request.POST['desc']
             book.save()
-
+    # delete book if the user is in session
     if 'delete' in  request.POST:
         book = Book.objects.get(id=int(request.POST['delete']))
         if request.session['id'] == book.uploaded_by.id:
             book.delete()
     return redirect('/books')
-
+# add a book favorites
 def add_fav_book(request):
-    pass
+    # get user and book, add to user_who_like
+    book_id = int(request.POST['id'])
+    user_id = request.session['id']
+    book = Book.objects.get(id=book_id)
+    user = User.objects.get(id=user_id)
+    book.user_who_like.add(user)
+    return redirect('/books')
+# remove book from favorites 
+def remove_fav_book(request):
+    # get user and book, remove from user_who_like
+    book_id = int(request.POST['id'])
+    user_id = request.session['id']
+    book = Book.objects.get(id=book_id)
+    user = User.objects.get(id=user_id)
+    book.user_who_like.remove(user)
+    return redirect('/books')

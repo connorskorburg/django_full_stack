@@ -20,26 +20,58 @@
         </div>
     </nav>
     <div id="show_book" class="container p-4 d-inline-block">
+        <!-- form to update or delete a book -->
         <form action="/update" method="POST">
         {% csrf_token %}
+            <!-- if checks to see if user can update/delete book or not -->
+            {% if request.session.id == uploaded_by.id %}
             <input class="form-control" id="title_input" type="text" value="{{ book.title }}" name="title">
-            <p class="text-light">Added by: {{ book.uploaded_by.first_name }} {{ book.uploaded_by.last_name }}</p>
-            <p class="text-light">Added on: {{ book.created_at }}</p>
-            <p class="text-light">Last updated on: {{ book.updated_at }}</p>
-            <p class="text-light d-inline-block">Description:</p>
+            {% elif request.session.id != uploaded_by.id %}
+            <h2 class="text-light"> {{ book.title }} </h2>
+            {% endif %}
+            <p class="text-light"><span class="text-primary ">Added by:</span> {{ book.uploaded_by.first_name }} {{ book.uploaded_by.last_name }}</p>
+            <p class="text-light"><span class="text-primary">Added on:</span> {{ book.created_at }}</p>
+            <p class="text-light"><span class="text-primary">Last updated on:</span> {{ book.updated_at }}</p>
+            <p class="text-primary d-inline-block">Description:</p>
+            <!-- if checks to see if user can update/delete book or not -->
+            {% if request.session.id == uploaded_by.id %}
             <textarea class="form-control" name="desc">{{ book.desc }}</textarea>
+            {% elif request.session.id != uploaded_by.id %}
+            <span class="text-light"> {{ book.desc }}</span>
+            {% endif %}
+            <!-- if checks to see if user can update/delete book or not -->
+            {% if request.session.id == uploaded_by.id %}
             <div class="text-center">
                 <button type="submit" class="btn btn-dark d-inline-block mt-3" name="update" value="{{ book.id }}">Update</button>
                 <button type="submit" class="btn btn-danger d-inline-block mt-3" name="delete" value="{{ book.id }}">Delete</button>
             </div>
+            {% endif %}
+            <a class="btn btn-block w-25 btn-primary mt-3" href="/books">Go Back!</a>
         </form>
+    <!-- divs touching to ensure inline block in working -->
     </div><div id="show_all" class="container text-light p-4 d-inline-block">
-        <h2>Users Who Like This Book: </h2>
+        <h2 class="text-primary">Users Who Like This Book: </h2>
+        <!-- display all users who like the book -->
         <ul>
         {% for user in users_who_like %}
-            <li>{{ user.first_name }} {{ user.last_name }}</li>
+            {% if request.session.id == user.id %}
+                <li>{{ user.first_name }} {{ user.last_name }} <form id="unfav" class="d-inline-block" action="/remove_fav_book" method="POST">
+                    {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ book.id }}">
+                        <button class="btn btn-sm btn-secondary my-3" type="submit">Un-Favorite</button>
+                </form></li>
+            {% elif request.session.id != user.id %}
+                <li>{{ user.first_name }} {{ user.last_name }}</li>
+            {% endif %}           
         {% endfor %}
         </ul>
+        {% if user_in_session not in users_who_like %}
+        <form action="/add_fav_book" method="POST">
+            {% csrf_token %}
+                <input type="hidden" name="id" value="{{ book.id }}">
+                <button class="btn btn-dark mb-3 " type="submit">Add to your Favorites</button>
+        </form>
+        {% endif %}
     </div>
     
 </body>

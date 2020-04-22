@@ -34,10 +34,11 @@ class BookManager(models.Manager):
     def book_validator(self, post_data):
         errors = {}
 
-        if post_data['title'] == '' or post_data['title'] == None:
+        if len(post_data['title']) < 1 or post_data['title'] == '':
             errors['title'] = "Please Enter a Title"
         if len(post_data['desc']) < 5:
             errors['desc'] = "Please Enter a Description with at least 5 characters!"
+        return errors
 
 
 class User(models.Model):
@@ -47,7 +48,7 @@ class User(models.Model):
     password = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # liked books = a list of books a certain user likes
+    # liked_books = a list of books a certain user likes
     # books_uploaded = a list of books uploaded by a certain user
     objects = UserManager()
 

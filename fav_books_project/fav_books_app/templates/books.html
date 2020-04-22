@@ -32,8 +32,16 @@
                 <label>Description: </label>
                 <input class="form-control" type="text" name="desc">
             </div>
-            <button type="submit" class="btn btn-dark">Add</button>
+            <button type="submit" class="btn btn-dark mb-3">Add</button>
         </form>
+        <!-- validation errors messages -->
+        {% if messages %}
+        <div class="messages text-center m-auto">
+            {% for message in messages %}
+            <p {% if message.tags %} class="mb-1 text-danger py-1 border rounded {{ message.tags }}" {% endif %}>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
     <!-- divs touching to ensure inline block in working -->
     </div><div id="all_books" class="container mt-3 p-5">
         <!-- list of all books -->
