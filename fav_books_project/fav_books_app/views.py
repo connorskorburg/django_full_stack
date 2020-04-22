@@ -15,17 +15,21 @@ def books(request):
         return redirect('/')
     else:
         all_books = Book.objects.all()
-
+        user = User.objects.get(id=request.session['id'])
+        liked_books = user.liked_books.all()
         context = {
             'all_books': all_books,
+            'liked_books': liked_books,
         }
         return render(request, 'books.html', context)
 
 # display a certain book
 def show_book(request, book_id):
     book = Book.objects.get(id=book_id)
+    users_who_like = book.user_who_like.all()
     context = {
         'book': book,
+        'users_who_like': users_who_like,
     }
     return render(request, 'show_book.html', context)
 
@@ -101,4 +105,7 @@ def update(request):
         book = Book.objects.get(id=int(request.POST['delete']))
         if request.session['id'] == book.uploaded_by.id:
             book.delete()
-    return redirect('/books/')
+    return redirect('/books')
+
+def add_fav_book(request):
+    pass

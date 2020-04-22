@@ -40,8 +40,6 @@ class BookManager(models.Manager):
             errors['desc'] = "Please Enter a Description with at least 5 characters!"
 
 
-
-
 class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)

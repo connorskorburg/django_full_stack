@@ -47,15 +47,15 @@
             <input type="password" class="form-control" placeholder="Password" name="password">
         </div>
         <button class="btn btn-block btn-dark" type="submit">Login</button>
-        </form>
-        <!-- validation errors messages -->
-        {% if messages %}
-        <div class="messages text-center m-auto">
-            {% for message in messages %}
-            <p {% if message.tags %} class="mb-1 text-danger py-1 border rounded {{ message.tags }}" {% endif %}>{{ message }}</p>
-            {% endfor %}
-        </div>
-        {% endif %} 
-    </div>    
+        </form> 
+    </div>
+    <!-- validation errors messages -->
+    {% if messages %}
+    <div class="messages text-center m-auto">
+        {% for message in messages %}
+        <p {% if message.tags %} class="mb-1 text-danger py-1 border rounded {{ message.tags }}" {% endif %}>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}  
 </body>
 </html>

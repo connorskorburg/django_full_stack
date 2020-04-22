@@ -19,7 +19,7 @@
             </ul>
         </div>
     </nav>
-    <div id="add_book" class="container mt-3 p-4">
+    <div id="add_book" class="container mt-3 p-5">
         <h2>Add a Favorite Book</h2>
         <!-- form to add new book -->
         <form action="/add_book" method="POST">
@@ -35,12 +35,21 @@
             <button type="submit" class="btn btn-dark">Add</button>
         </form>
     <!-- divs touching to ensure inline block in working -->
-    </div><div id="all_books" class="container mt-3 p-4">
+    </div><div id="all_books" class="container mt-3 p-5">
         <!-- list of all books -->
         <h3>All Books</h3>
         {% for book in all_books %}
             <a href="{{book.id}}">{{ book.title }}</a>
             <p>(added by {{ book.uploaded_by.first_name }} {{ book.uploaded_by.last_name }})</p>
+            {% if book in liked_books %}
+            <p class="font-italic text-secondary">this book is in your favorites</p>
+            {% elif book not in liked_books %}
+            <form action="/add_fav_book" method="POST">
+            {% csrf_token %}
+                <input type="hidden" name="id" value="{{ book.id }}">
+                <button class="btn btn-dark mb-3" type="submit">Add to your Favorites</button>
+            </form>
+            {% endif %}
         {% endfor %}
     </div>
 </body>
